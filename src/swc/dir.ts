@@ -291,10 +291,12 @@ export default async function dir({
   cliOptions: CliOptions;
   swcOptions: Options;
 }) {
-  const { watch } = cliOptions;
+  const { watch, skipInitialCompilation } = cliOptions;
 
   await beforeStartCompilation(cliOptions);
-  await initialCompilation(cliOptions, swcOptions);
+  if (!skipInitialCompilation) {
+    await initialCompilation(cliOptions, swcOptions);
+  }
 
   if (watch) {
     await watchCompilation(cliOptions, swcOptions);
