@@ -35,6 +35,11 @@ export const initProgram = () => {
   );
 
   program.option(
+    "--skip-initial-compilation",
+    "Whether or not to skip initial compilation with --watch"
+  );
+
+  program.option(
     "--ignore [list]",
     "list of glob paths to **not** compile",
     collect
@@ -154,6 +159,7 @@ export interface CliOptions {
   readonly copyFiles: boolean;
   readonly includeDotfiles: boolean;
   readonly deleteDirOnStart: boolean;
+  readonly skipInitialCompilation: boolean;
   readonly quiet: boolean;
 }
 
@@ -257,6 +263,7 @@ export default function parserArgs(args: string[]) {
     copyFiles: !!opts.copyFiles,
     includeDotfiles: !!opts.includeDotfiles,
     deleteDirOnStart: Boolean(opts.deleteDirOnStart),
+    skipInitialCompilation: Boolean(opts.skipInitialCompilation),
     quiet: !!opts.quiet,
   };
   return {
